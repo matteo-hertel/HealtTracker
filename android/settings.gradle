@@ -1,0 +1,4 @@
+rootProject.name = 'HealthTracker'
+include ':react-native-samsung-health'
+project(':react-native-samsung-health').projectDir = new File(settingsDir, '../node_modules/react-native-samsung-health/android')
+include ':app'
