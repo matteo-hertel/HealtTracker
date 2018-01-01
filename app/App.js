@@ -15,11 +15,32 @@ const styles = StyleSheet.create({
 export default class App extends Component {
 	constructor(){
 		super();
+		this.setStartDate = this.getDate.bind(this, "startDate");
+	this.setEndDate = this.getDate.bind(this, "endDate");
 this.state = {
 	startDate:null,
 	endDate:null
 }
 	}
+  async getDate(key){
+  try {
+  const {action, year, month, day} = await DatePickerAndroid.open({
+    // Use `new Date()` for current date.
+    // May 25 2020. Month 0 is January.
+    date: new Date(2020, 4, 25)
+  });
+  if (action !== DatePickerAndroid.dismissedAction) {
+	  let newState = [];
+	  newState[key] = {
+    day,
+	    month, year
+    };
+    this.setState(newState);
+  }
+} catch ({code, message}) {
+  console.warn('Cannot open date picker', message);
+}
+  }
 	render() {
     return (
       <View style={styles.container}>
